@@ -1,36 +1,21 @@
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Modal,
-  View,
-  FlatList,
-} from 'react-native';
-import styles from '@styles/global';
 import { Provider } from 'react-redux';
 import store from '@services/app-store';
-import { useTranslation } from 'react-i18next';
-import i18next, { languageResources } from '@services/i18next';
-import { useState } from 'react';
-import languagesList from '@locales/languagesList.json';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Login, Register } from '@screens/auth';
+import { Screens } from '@services/typings/global';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <Provider store={store}>
-      <View style={{ height: '50%' }}>
-        <Text
-          style={{
-            height: 200,
-            backgroundColor: 'red',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text style={{ height: 20, backgroundColor: 'green' }}>Test</Text>
-        </Text>
-      </View>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName={Screens.LOGIN}>
+          <Stack.Screen name={Screens.LOGIN} component={Login} />
+          <Stack.Screen name={Screens.REGISTER} component={Register} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </Provider>
   );
 }
