@@ -3,3 +3,7 @@ export enum Screens {
     LOGIN = 'login',
     REGISTER = 'register'
 }
+
+export type LanguageResources = {
+    [key: string]: { translation: Record<string, string> };
+  };

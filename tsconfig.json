@@ -10,7 +10,8 @@
       "@styles/*": ["src/styles/*"],
       "@screens/*": ["src/screens/*"],
       "@locales/*": ["src/locales/*"],
-      "@assets/*": ["assets/*"]
+      "@assets/*": ["assets/*"],
+      "@typings/*": ["src/services/typings/*"]
     }
   },
 }

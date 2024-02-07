@@ -4,12 +4,13 @@ import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
 import Swiper from 'react-native-swiper';
 import { useTranslation } from 'react-i18next';
+import { IAuthSlide } from './dto/auth';
 
 const Auth = () => {
   const { t } = useTranslation();
-  const navigation = useNavigation() as any;
+  const navigation = useNavigation<{ navigate: (screen: Screens) => void }>();
 
-  const slides: any = [
+  const slides: IAuthSlide[] = [
     {
       id: 1,
       title: t('mainSlides.slide_1.title'),
@@ -19,7 +20,7 @@ const Auth = () => {
     {
       id: 2,
       title: t('mainSlides.slide_2.title'),
-      description: t('mainSlides.slide_2.decription'),
+      description: t('mainSlides.slide_2.description'),
       image: require('@assets/images/picture_2.png'),
     },
     {
@@ -38,7 +39,7 @@ const Auth = () => {
           paginationStyle={styles.paginationStyle}
           activeDotStyle={styles.activeDotStyle}
         >
-          {slides.map(({ id, image, title, description }: any) => (
+          {slides.map(({ id, image, title, description }: IAuthSlide) => (
             <View key={id} style={styles.slide}>
               <Image style={styles.slideImage} source={image} />
               <View style={styles.slideTextWrapper}>

@@ -1,30 +1,35 @@
-import { Dimensions, StyleSheet } from "react-native";
+import { Dimensions, StyleSheet, TextStyle } from "react-native";
+
+const buttonStyles = {
+    borderRadius: 16,
+    padding: 17,
+};
+
+const textStyles: TextStyle = {
+    fontFamily: 'Inter-Bold',
+    fontSize: 18,
+    textAlign: 'center',
+};
 
 export default StyleSheet.create({
     registerButton: {
-        borderRadius: 16,
-        padding: 17,
-        backgroundColor: '#7F3DFF'
+        ...buttonStyles,
+        backgroundColor: '#7F3DFF',
     },
 
     loginButton: {
-        borderRadius: 16,
-        padding: 17,
-        backgroundColor: '#EEE5FF'
+        ...buttonStyles,
+        backgroundColor: '#EEE5FF',
     },
 
     registerButtonText: {
-        fontFamily: 'Inter-Bold',
-        fontSize: 18,
+        ...textStyles,
         color: '#FCFCFC',
-        textAlign: 'center',
     },
 
     loginButtonText: {
-        fontFamily: 'Inter-Bold',
-        fontSize: 18,
+        ...textStyles,
         color: '#7F3DFF',
-        textAlign: 'center',
     },
 
     buttonGroup: {
@@ -36,15 +41,15 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         padding: 16,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
     },
 
     top: {
-        flex: 0.85
+        flex: 0.85,
     },
 
     bottom: {
-        flex: 0.18
+        flex: 0.18,
     },
 
     slide: {
@@ -86,7 +91,7 @@ export default StyleSheet.create({
     },
 
     paginationStyle: {
-        gap: 8 
+        gap: 8,
     },
 
     activeDotStyle: {
@@ -100,6 +105,6 @@ export default StyleSheet.create({
         width: 8,
         height: 8,
         borderRadius: 100,
-        backgroundColor: '#EEE5FF'
-    }
+        backgroundColor: '#EEE5FF',
+    },
 });
