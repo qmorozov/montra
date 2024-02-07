@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, Text, Button, Appearance } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Screens } from '@services/typings/global';

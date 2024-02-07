@@ -9,7 +9,8 @@
       "@hooks/*": ["src/hooks/*"],
       "@styles/*": ["src/styles/*"],
       "@screens/*": ["src/screens/*"],
-      "@locales/*": ["src/locales/*"]
+      "@locales/*": ["src/locales/*"],
+      "@assets/*": ["assets/*"]
     }
   },
 }
