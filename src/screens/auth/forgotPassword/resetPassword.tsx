@@ -62,6 +62,7 @@ const ResetPassword = () => {
     confirmPassword,
   }: IResetPasswordFormData): void => {
     console.log({ confirmPassword, password });
+    navigation.navigate(Screens.LOGIN);
   };
 
   return (

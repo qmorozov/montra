@@ -10,6 +10,7 @@ import {
   ForgotPassword,
   EmailSent,
   ResetPassword,
+  Verification,
 } from '@screens/auth';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Screens } from '@services/typings/global';
@@ -26,6 +27,7 @@ const screens = [
   { name: Screens.AUTH, component: Auth },
   { name: Screens.EMAILSENT, component: EmailSent },
   { name: Screens.RESETPASSWORD, component: ResetPassword },
+  { name: Screens.VERIFICATION, component: Verification },
 ];
 
 export default function App() {

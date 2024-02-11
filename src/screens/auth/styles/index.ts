@@ -169,4 +169,54 @@ export default StyleSheet.create({
     textAlign: 'center',
     color: '#292B2D',
   },
+
+  verification: {
+    fontWeight: '500',
+    fontSize: 36,
+    lineHeight: 44,
+    maxWidth: 300,
+    marginTop: 4,
+  },
+
+  verificationCode: {
+    flexDirection: 'row',
+    gap: 16,
+    height: 40,
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 15,
+  },
+
+  verificationCodeItem: {
+    fontWeight: 'bold',
+    fontSize: 32,
+    lineHeight: 39,
+    // userSelect: 'none',
+    color: '#161719',
+  },
+
+  nonActiveVerificationCodeItem: {
+    width: 16,
+    height: 16,
+    textAlign: 'center',
+    backgroundColor: '#E0E2E9',
+    borderRadius: 100,
+  },
+
+  verificationCodeSent: {
+    fontWeight: '500',
+    fontSize: 16,
+    lineHeight: 19,
+    color: '#292B2D',
+    marginTop: 16,
+  },
+
+  verificationCodeTimer: {},
+
+  verificationCodeTimerText: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    lineHeight: 22,
+    color: '#7F3DFF',
+  },
 });

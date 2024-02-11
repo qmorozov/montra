@@ -2,6 +2,7 @@
   "signUp": "Sign Up",
   "login": "Login",
   "resetPassword": "Reset Password",
+  "verification": "Verification",
   "mainSlides": {
     "slide_1": {
       "title": "Gain total control of your money",
@@ -48,5 +49,10 @@
   "enterYourEmailAndWellSendYouALinkToResetYourPassword": "Enter your email and we’ll send you a link to reset your password.",
   "backToLogin": "Back to Login",
   "checkYourEmailAndFollowTheInstructions": "Check your email {{email}} and follow the instructions to reset your password",
-  "yourEmailIsOnTheWay": "Your email is on the way"
+  "yourEmailIsOnTheWay": "Your email is on the way",
+  "enterYourVerificationCode": "Enter your verification code",
+  "weSendVerificationCodeToYourEmailYouCanCheckYourInbox": "We send verification code to your\nemail {{email}}. You can\ncheck your inbox.",
+  "iDidntReceivedTheCodeSendAgain": "I didn’t received the code? Send again",
+  "verify": "Verify",
+  "codeIsIncorrect": "Code is incorrect",
 }
