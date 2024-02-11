@@ -32,5 +32,10 @@
         "passwordRequired": "Пароль обязателен",
         "passwordMinValue": "Пароль должен содержать не менее 8 символов",
         "agreeToTerms": "Вы должны согласиться с Условиями и Политикой конфиденциальности"
-    }
+    },
+    "orWith": "Or with",
+    "signUpWithGoogle": "Sign Up with Google",
+    "alreadyHaveAnAccount": "Already have an account?",
+    "dontHaveAnAccountYet": "Don’t have an account yet?",
+    "forgotPassword": "Forgot Password?"
 }

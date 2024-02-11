@@ -123,13 +123,13 @@ const Login = () => {
 
         <TouchableOpacity style={defaultButtonSize}>
           <Text style={[defaultButtonFontSize, styles.forgotPasswordBtn]}>
-            Forgot Password?
+            {t('forgotPassword')}
           </Text>
         </TouchableOpacity>
 
         <View style={styles.dontOrHaveAccount}>
           <Text style={styles.dontOrHaveAccountText}>
-            Don’t have an account yet?
+            {t('dontHaveAnAccountYet')}
           </Text>
           <TouchableOpacity
             onPress={() => navigation.navigate(Screens.REGISTER)}
@@ -141,7 +141,7 @@ const Login = () => {
                 { textDecorationLine: 'underline' },
               ]}
             >
-              Sign Up
+              {t('signUp')}
             </Text>
           </TouchableOpacity>
         </View>

@@ -32,5 +32,10 @@
     "passwordRequired": "Password is required",
     "passwordMinValue": "Password must contain at least 8 characters",
     "agreeToTerms": "You must agree to the Terms of Service and Privacy Policy"
-  }
+  },
+  "orWith": "Or with",
+  "signUpWithGoogle": "Sign Up with Google",
+  "alreadyHaveAnAccount": "Already have an account?",
+  "dontHaveAnAccountYet": "Don’t have an account yet?",
+  "forgotPassword": "Forgot Password?"
 }

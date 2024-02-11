@@ -186,16 +186,16 @@ const Register = () => {
           <Text style={GlobalStyles.primaryButtonText}>{t('signUp')}</Text>
         </TouchableOpacity>
 
-        <Text style={styles.orWithText}>Or with</Text>
+        <Text style={styles.orWithText}>{t('orWith')}</Text>
 
         <TouchableOpacity style={styles.signUpBySocial}>
           <Google />
-          <Text style={defaultButtonFontSize}>Sign Up with Google</Text>
+          <Text style={defaultButtonFontSize}>{t('signUpWithGoogle')}</Text>
         </TouchableOpacity>
 
         <View style={styles.dontOrHaveAccount}>
           <Text style={styles.dontOrHaveAccountText}>
-            Already have an account?
+            {t('alreadyHaveAnAccount')}
           </Text>
           <TouchableOpacity onPress={() => navigation.navigate(Screens.LOGIN)}>
             <Text
@@ -205,7 +205,7 @@ const Register = () => {
                 { textDecorationLine: 'underline' },
               ]}
             >
-              Login
+              {t('login')}
             </Text>
           </TouchableOpacity>
         </View>
