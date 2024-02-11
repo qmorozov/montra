@@ -14,5 +14,23 @@
             "title": "Планируйте бюджет",
             "description": "Настройте бюджет для контроля над каждой категорией"
         }
+    },
+    "formsFields": {
+        "name": "Имя",
+        "email": "Электронная почта",
+        "password": "Пароль",
+        "Terms&PrivacyPolicy": "By signing up, you agree to the",
+        "Terms&PrivacyPolicyWithLink": "Terms of Service and Privacy Policy",
+        "newPassword": "Новый пароль",
+        "retypeNewPassword": "Повторите новый пароль"
+    },
+    "formsFieldsValidation": {
+        "nameRequired": "Имя обязательно",
+        "nameMinValue": "Имя должно содержать не менее 2 символов",
+        "emailRequired": "Электронная почта обязательна",
+        "emailInvalid": "Недопустимый адрес электронной почты",
+        "passwordRequired": "Пароль обязателен",
+        "passwordMinValue": "Пароль должен содержать не менее 8 символов",
+        "agreeToTerms": "Вы должны согласиться с Условиями и Политикой конфиденциальности"
     }
 }

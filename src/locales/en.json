@@ -1,18 +1,36 @@
 {
-    "signUp": "Sign Up",
-    "login": "Login",
-    "mainSlides": {
-        "slide_1": {
-            "title": "Gain total control of your money",
-            "description": "Become your own money manager and make every cent count"
-        },
-        "slide_2": {
-            "title": "Know where your money goes",
-            "description": "Track your transaction easily, with categories and financial report"
-        },
-        "slide_3": {
-            "title": "Planning ahead",
-            "description": "Setup your budget for each category so you in control"
-        }
+  "signUp": "Sign Up",
+  "login": "Login",
+  "mainSlides": {
+    "slide_1": {
+      "title": "Gain total control of your money",
+      "description": "Become your own money manager and make every cent count"
+    },
+    "slide_2": {
+      "title": "Know where your money goes",
+      "description": "Track your transaction easily, with categories and financial report"
+    },
+    "slide_3": {
+      "title": "Planning ahead",
+      "description": "Setup your budget for each category so you in control"
     }
+  },
+  "formsFields": {
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "Terms&PrivacyPolicy": "By signing up, you agree to the",
+    "Terms&PrivacyPolicyWithLink": "Terms of Service and Privacy Policy",
+    "newPassword": "New Password",
+    "retypeNewPassword": "Retype new password"
+  },
+  "formsFieldsValidation": {
+    "nameRequired": "Name is required",
+    "nameMinValue": "Name must contain at least 2 characters",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Invalid email",
+    "passwordRequired": "Password is required",
+    "passwordMinValue": "Password must contain at least 8 characters",
+    "agreeToTerms": "You must agree to the Terms of Service and Privacy Policy"
+  }
 }

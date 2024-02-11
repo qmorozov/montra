@@ -1,16 +1,16 @@
-import { Screens } from '@services/typings/global'
-import { View, Text, Image, TouchableOpacity } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import styles from './styles'
-import Swiper from 'react-native-swiper'
-import { useTranslation } from 'react-i18next'
-import { IAuthSlide } from './dto/auth'
-import GlobalStyles from '@styles/global'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { Screens } from '@services/typings/global';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import styles from './styles';
+import Swiper from 'react-native-swiper';
+import { useTranslation } from 'react-i18next';
+import { IAuthSlide } from './dto/auth';
+import GlobalStyles from '@styles/global';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Auth = () => {
-  const { t } = useTranslation()
-  const navigation = useNavigation<{ navigate: (screen: Screens) => void }>()
+  const { t } = useTranslation();
+  const navigation = useNavigation<{ navigate: (screen: Screens) => void }>();
 
   const slides: IAuthSlide[] = [
     {
@@ -31,7 +31,7 @@ const Auth = () => {
       description: t('mainSlides.slide_3.description'),
       image: require('@assets/images/picture_3.png'),
     },
-  ]
+  ];
 
   return (
     <SafeAreaView style={[GlobalStyles.wrapper, GlobalStyles.droidSafeArea]}>
@@ -56,22 +56,22 @@ const Auth = () => {
       <View style={styles.bottom}>
         <View style={styles.buttonGroup}>
           <TouchableOpacity
-            style={styles.registerButton}
+            style={GlobalStyles.primaryButton}
             onPress={() => navigation.navigate(Screens.REGISTER)}
           >
-            <Text style={styles.registerButtonText}>{t('signUp')}</Text>
+            <Text style={GlobalStyles.primaryButtonText}>{t('signUp')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={styles.loginButton}
+            style={GlobalStyles.secondaryButton}
             onPress={() => navigation.navigate(Screens.LOGIN)}
           >
-            <Text style={styles.loginButtonText}>{t('login')}</Text>
+            <Text style={GlobalStyles.secondaryButtonText}>{t('login')}</Text>
           </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default Auth
+export default Auth;
