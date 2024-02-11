@@ -11,6 +11,7 @@
       "@screens/*": ["src/screens/*"],
       "@locales/*": ["src/locales/*"],
       "@assets/*": ["assets/*"],
+      "@components/*": ["src/components/*"],
       "@typings/*": ["src/services/typings/*"]
     }
   },

@@ -1,14 +1,16 @@
-import { Screens } from '@services/typings/global';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import styles from './styles';
-import Swiper from 'react-native-swiper';
-import { useTranslation } from 'react-i18next';
-import { IAuthSlide } from './dto/auth';
+import { Screens } from '@services/typings/global'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import styles from './styles'
+import Swiper from 'react-native-swiper'
+import { useTranslation } from 'react-i18next'
+import { IAuthSlide } from './dto/auth'
+import GlobalStyles from '@styles/global'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Auth = () => {
-  const { t } = useTranslation();
-  const navigation = useNavigation<{ navigate: (screen: Screens) => void }>();
+  const { t } = useTranslation()
+  const navigation = useNavigation<{ navigate: (screen: Screens) => void }>()
 
   const slides: IAuthSlide[] = [
     {
@@ -29,10 +31,10 @@ const Auth = () => {
       description: t('mainSlides.slide_3.description'),
       image: require('@assets/images/picture_3.png'),
     },
-  ];
+  ]
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={[GlobalStyles.wrapper, GlobalStyles.droidSafeArea]}>
       <View style={styles.top}>
         <Swiper
           dotStyle={styles.slideDot}
@@ -68,8 +70,8 @@ const Auth = () => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
-  );
-};
+    </SafeAreaView>
+  )
+}
 
-export default Auth;
+export default Auth

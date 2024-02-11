@@ -3,6 +3,7 @@ import store from '@services/app-store';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Auth, Login, Register } from '@screens/auth';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Screens } from '@services/typings/global';
 import { useFonts } from 'expo-font';
 import { I18nextProvider } from 'react-i18next';
@@ -24,21 +25,23 @@ export default function App() {
   }
 
   return (
-    <Provider store={store}>
-      <I18nextProvider i18n={I18next}>
-        <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{
-              headerShown: false,
-            }}
-            initialRouteName={Screens.AUTH}
-          >
-            <Stack.Screen name={Screens.LOGIN} component={Login} />
-            <Stack.Screen name={Screens.REGISTER} component={Register} />
-            <Stack.Screen name={Screens.AUTH} component={Auth} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </I18nextProvider>
-    </Provider>
+    <SafeAreaProvider>
+      <Provider store={store}>
+        <I18nextProvider i18n={I18next}>
+          <NavigationContainer>
+            <Stack.Navigator
+              screenOptions={{
+                headerShown: false,
+              }}
+              initialRouteName={Screens.AUTH}
+            >
+              <Stack.Screen name={Screens.LOGIN} component={Login} />
+              <Stack.Screen name={Screens.REGISTER} component={Register} />
+              <Stack.Screen name={Screens.AUTH} component={Auth} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </I18nextProvider>
+      </Provider>
+    </SafeAreaProvider>
   );
 }

@@ -1,19 +1,16 @@
-import { View, Text, Button } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { Screens } from '@services/typings/global';
+import { SafeAreaView, Text, View } from 'react-native'
+import GlobalStyles from '@styles/global'
+import { MainHeader } from '@components/index'
 
 const Register = () => {
-  const navigation = useNavigation() as any;
-
   return (
-    <View>
-      <Text>Register</Text>
-      <Button
-        title={Screens.LOGIN}
-        onPress={() => navigation.navigate(Screens.LOGIN)}
-      />
-    </View>
-  );
-};
+    <SafeAreaView style={GlobalStyles.droidSafeArea}>
+      <MainHeader title="Register" />
+      <View style={GlobalStyles.wrapper}>
+        <Text>Register</Text>
+      </View>
+    </SafeAreaView>
+  )
+}
 
-export default Register;
+export default Register
