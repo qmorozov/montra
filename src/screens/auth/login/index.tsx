@@ -69,7 +69,7 @@ const Login = () => {
   const onSubmitLoginData: SubmitHandler<ILoginFormData> = ({
     email,
     password,
-  }: ILoginFormData) => {
+  }: ILoginFormData): void => {
     console.log({ email, password });
   };
 
@@ -121,9 +121,12 @@ const Login = () => {
           <Text style={GlobalStyles.primaryButtonText}>{t('login')}</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={defaultButtonSize}>
+        <TouchableOpacity
+          style={defaultButtonSize}
+          onPress={() => navigation.navigate(Screens.FORGOTPASSWORD)}
+        >
           <Text style={[defaultButtonFontSize, styles.forgotPasswordBtn]}>
-            {t('forgotPassword')}
+            {t('forgotPassword')}?
           </Text>
         </TouchableOpacity>
 

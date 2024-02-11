@@ -1,8 +1,16 @@
+import React from 'react';
 import { Provider } from 'react-redux';
 import store from '@services/app-store';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Auth, Login, Register } from '@screens/auth';
+import {
+  Auth,
+  Login,
+  Register,
+  ForgotPassword,
+  EmailSent,
+  ResetPassword,
+} from '@screens/auth';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Screens } from '@services/typings/global';
 import { useFonts } from 'expo-font';
@@ -10,6 +18,15 @@ import { I18nextProvider } from 'react-i18next';
 import I18next from './src/services/i18next';
 
 const Stack = createNativeStackNavigator();
+
+const screens = [
+  { name: Screens.LOGIN, component: Login },
+  { name: Screens.REGISTER, component: Register },
+  { name: Screens.FORGOTPASSWORD, component: ForgotPassword },
+  { name: Screens.AUTH, component: Auth },
+  { name: Screens.EMAILSENT, component: EmailSent },
+  { name: Screens.RESETPASSWORD, component: ResetPassword },
+];
 
 export default function App() {
   const [fontsLoaded, fontError] = useFonts({
@@ -35,9 +52,13 @@ export default function App() {
               }}
               initialRouteName={Screens.AUTH}
             >
-              <Stack.Screen name={Screens.LOGIN} component={Login} />
-              <Stack.Screen name={Screens.REGISTER} component={Register} />
-              <Stack.Screen name={Screens.AUTH} component={Auth} />
+              {screens.map((screen) => (
+                <Stack.Screen
+                  key={screen.name}
+                  name={screen.name}
+                  component={screen.component}
+                />
+              ))}
             </Stack.Navigator>
           </NavigationContainer>
         </I18nextProvider>

@@ -64,7 +64,7 @@ const Auth = () => {
 
           <TouchableOpacity
             style={GlobalStyles.secondaryButton}
-            onPress={() => navigation.navigate(Screens.LOGIN)}
+            onPress={() => navigation.navigate(Screens.RESETPASSWORD)}
           >
             <Text style={GlobalStyles.secondaryButtonText}>{t('login')}</Text>
           </TouchableOpacity>

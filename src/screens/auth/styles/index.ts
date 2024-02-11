@@ -78,40 +78,40 @@ export default StyleSheet.create({
   },
 
   authPageWrapper: {
-    marginTop: 56
+    marginTop: 56,
   },
 
   formButton: {
-    marginTop: 13
+    marginTop: 13,
   },
 
   formWrapper: {
     gap: 4,
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
 
   forgotPasswordBtn: {
     marginTop: 20,
-    color: '#7F3DFF'
+    color: '#7F3DFF',
   },
 
   dontOrHaveAccount: {
     flexDirection: 'row',
     gap: 4,
     justifyContent: 'center',
-    marginTop: 16
+    marginTop: 16,
   },
 
   dontOrHaveAccountText: {
     color: '#91919F',
-    fontWeight: '500'
+    fontWeight: '500',
   },
 
   orWithText: {
     marginTop: 12,
     textAlign: 'center',
     color: '#91919F',
-    fontWeight: '700'
+    fontWeight: '700',
   },
 
   signUpBySocial: {
@@ -125,6 +125,48 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: '#F1F1FA',
     borderRadius: 16,
-    minHeight: 56
-  }
+    minHeight: 56,
+  },
+
+  forgotPasswordTitleWrapper: {
+    width: 340,
+    marginTop: 60,
+    marginBottom: 45,
+  },
+
+  forgotPasswordTitle: {
+    fontWeight: 'bold',
+    fontSize: 24,
+    lineHeight: 29,
+    color: '#0D0E0F',
+  },
+
+  emailSentIcon: {
+    marginTop: 80,
+  },
+
+  emailSentTextWrapper: {
+    marginTop: 58,
+    textAlign: 'center',
+    maxWidth: 300,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+
+  emailSentTitle: {
+    fontWeight: 'bold',
+    fontSize: 24,
+    lineHeight: 29,
+    textAlign: 'center',
+    color: '#0D0E0F',
+  },
+
+  emailSentText: {
+    fontWeight: '500',
+    fontSize: 16,
+    lineHeight: 20,
+    marginTop: 24,
+    textAlign: 'center',
+    color: '#292B2D',
+  },
 });

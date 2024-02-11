@@ -1,6 +1,7 @@
 {
   "signUp": "Sign Up",
   "login": "Login",
+  "resetPassword": "Reset Password",
   "mainSlides": {
     "slide_1": {
       "title": "Gain total control of your money",
@@ -19,6 +20,7 @@
     "name": "Name",
     "email": "Email",
     "password": "Password",
+    "confirmPassword": "Confirm password",
     "Terms&PrivacyPolicy": "By signing up, you agree to the",
     "Terms&PrivacyPolicyWithLink": "Terms of Service and Privacy Policy",
     "newPassword": "New Password",
@@ -31,11 +33,20 @@
     "emailInvalid": "Invalid email",
     "passwordRequired": "Password is required",
     "passwordMinValue": "Password must contain at least 8 characters",
-    "agreeToTerms": "You must agree to the Terms of Service and Privacy Policy"
+    "confirmPasswordRequired": "Confirm password is required",
+    "confirmPasswordMinValue": "Confirm password must contain at least 8 characters",
+    "agreeToTerms": "You must agree to the Terms of Service and Privacy Policy",
+    "passwordsMustMatch": "Passwords must match"
   },
   "orWith": "Or with",
   "signUpWithGoogle": "Sign Up with Google",
   "alreadyHaveAnAccount": "Already have an account?",
   "dontHaveAnAccountYet": "Don’t have an account yet?",
-  "forgotPassword": "Forgot Password?"
+  "forgotPassword": "Forgot Password",
+  "continue": "Continue",
+  "dontWorry": "Don’t worry.",
+  "enterYourEmailAndWellSendYouALinkToResetYourPassword": "Enter your email and we’ll send you a link to reset your password.",
+  "backToLogin": "Back to Login",
+  "checkYourEmailAndFollowTheInstructions": "Check your email {{email}} and follow the instructions to reset your password",
+  "yourEmailIsOnTheWay": "Your email is on the way"
 }

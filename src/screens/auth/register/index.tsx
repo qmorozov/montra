@@ -90,7 +90,7 @@ const Register = () => {
     email,
     password,
     agreeToTerms,
-  }: IRegisterFormData) => {
+  }: IRegisterFormData): void => {
     console.log({ name, email, password, agreeToTerms });
   };
 
