@@ -1,10 +1,4 @@
-import {
-  SafeAreaView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import GlobalStyles, {
   defaultInput,
   errorTextStyle,
@@ -12,15 +6,16 @@ import GlobalStyles, {
   defaultButtonSize,
   clickableText,
 } from '@styles/global';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { MainHeader } from '@components/index';
 import * as yup from 'yup';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import styles from '../styles';
 import { useNavigation } from '@react-navigation/native';
 import { Screens } from '@services/typings/global';
+import styles from '../styles';
 
 interface ILoginFormData {
   email: string;

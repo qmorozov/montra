@@ -37,6 +37,8 @@ const Auth = () => {
     <SafeAreaView style={[GlobalStyles.wrapper, GlobalStyles.droidSafeArea]}>
       <View style={styles.top}>
         <Swiper
+          autoplay={true}
+          autoplayTimeout={6}
           dotStyle={styles.slideDot}
           paginationStyle={styles.paginationStyle}
           activeDotStyle={styles.activeDotStyle}

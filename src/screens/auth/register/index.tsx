@@ -1,10 +1,4 @@
-import {
-  SafeAreaView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import GlobalStyles, {
   defaultInput,
   clickableText,
@@ -14,12 +8,13 @@ import GlobalStyles, {
   defaultButtonFontSize,
   defaultCheckboxText,
 } from '@styles/global';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from '../styles';
 import { MainHeader } from '@components/index';
 import * as yup from 'yup';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import CheckBox from 'expo-checkbox';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';

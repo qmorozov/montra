@@ -1,16 +1,16 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+  responsiveScreenWidth,
+} from 'react-native-responsive-dimensions';
 
 export default StyleSheet.create({
   buttonGroup: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 16,
-  },
-
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#fff',
+    gap: responsiveWidth(4), // 16
   },
 
   top: {
@@ -22,13 +22,14 @@ export default StyleSheet.create({
   },
 
   slide: {
-    marginTop: 32,
-    justifyContent: 'center',
-    width: Dimensions.get('window').width * 0.95,
+    marginTop: responsiveHeight(4),
+    width: responsiveScreenWidth(90),
+    // width: Dimensions.get('window').width * 0.95,
   },
 
   slideTextWrapper: {
-    maxWidth: 276,
+    marginTop: responsiveHeight(4.8), // 40
+    maxWidth: responsiveScreenWidth(80), // 276
     marginLeft: 'auto',
     marginRight: 'auto',
   },
@@ -36,53 +37,54 @@ export default StyleSheet.create({
   slideImage: {
     marginLeft: 'auto',
     marginRight: 'auto',
-    objectFit: 'contain',
-    width: Dimensions.get('window').width * 0.8,
-    height: Dimensions.get('window').width * 0.8,
+    resizeMode: 'contain',
+    // width: Dimensions.get('window').width * 0.8,
+    width: responsiveWidth(80),
+    // height: Dimensions.get('window').width * 0.8,
+    height: responsiveHeight(40),
   },
 
   slideTitle: {
-    marginTop: 40,
     fontFamily: 'Inter-Bold',
-    fontSize: 32,
-    lineHeight: 39,
+    fontSize: responsiveFontSize(3.5), // 32
+    lineHeight: responsiveHeight(4.4), // 39px
     textAlign: 'center',
     color: '#212325',
   },
 
   slideDescription: {
-    marginTop: 16,
+    marginTop: responsiveHeight(2), // 16
     fontFamily: 'Inter-Medium',
-    fontSize: 16,
-    lineHeight: 19,
+    fontSize: responsiveFontSize(1.9), // 16px
+    lineHeight: responsiveHeight(2.4), // 19px
     textAlign: 'center',
     color: '#91919F',
   },
 
   paginationStyle: {
-    gap: 8,
+    gap: 6,
   },
 
   activeDotStyle: {
-    width: 16,
-    height: 16,
+    width: 16, // 16
+    height: 16, // 16
     backgroundColor: '#7F3DFF',
-    borderRadius: 100,
+    borderRadius: responsiveWidth(4), // 100
   },
 
   slideDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 100,
+    width: responsiveWidth(2.4), // 8px,
+    height: responsiveHeight(1.2), // 8px
+    borderRadius: responsiveWidth(4), // 100
     backgroundColor: '#EEE5FF',
   },
 
   authPageWrapper: {
-    marginTop: 56,
+    marginTop: responsiveHeight(6.8), // 56px
   },
 
   formButton: {
-    marginTop: 13,
+    marginTop: responsiveHeight(1.6), // 13px
   },
 
   formWrapper: {
@@ -91,7 +93,7 @@ export default StyleSheet.create({
   },
 
   forgotPasswordBtn: {
-    marginTop: 20,
+    marginTop: responsiveHeight(2.5), // 20px
     color: '#7F3DFF',
   },
 
@@ -99,7 +101,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     gap: 4,
     justifyContent: 'center',
-    marginTop: 16,
+    marginTop: responsiveWidth(4), // 16
   },
 
   dontOrHaveAccountText: {
@@ -108,7 +110,7 @@ export default StyleSheet.create({
   },
 
   orWithText: {
-    marginTop: 12,
+    marginTop: responsiveHeight(1.5), // 12px
     textAlign: 'center',
     color: '#91919F',
     fontWeight: '700',
@@ -117,106 +119,101 @@ export default StyleSheet.create({
   signUpBySocial: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingRight: responsiveWidth(3.7), // 16px
+    paddingLeft: responsiveWidth(3.7), // 16px
+    paddingBottom: responsiveHeight(1.4), // 12px
+    paddingTop: responsiveHeight(1.4), // 12px
     gap: 10,
     justifyContent: 'center',
-    marginTop: 12,
-    borderWidth: 1,
+    marginTop: responsiveHeight(1.4), // 12px
+    borderWidth: responsiveWidth(0.3),
     borderColor: '#F1F1FA',
-    borderRadius: 16,
-    minHeight: 56,
+    borderRadius: responsiveWidth(3.7), // 16px
+    // minHeight: 56,
   },
 
   forgotPasswordTitleWrapper: {
-    width: 340,
-    marginTop: 60,
-    marginBottom: 45,
+    width: responsiveScreenWidth(76), // 360
+    marginTop: responsiveHeight(7), // 60
+    marginBottom: responsiveHeight(5.5), // 45
   },
 
   forgotPasswordTitle: {
     fontWeight: 'bold',
-    fontSize: 24,
-    lineHeight: 29,
+    fontSize: responsiveFontSize(2.85), // 24
+    lineHeight: responsiveHeight(3.55), // 29
     color: '#0D0E0F',
   },
 
   emailSentIcon: {
-    marginTop: 80,
+    marginTop: responsiveHeight(9.8), // 80
   },
 
   emailSentTextWrapper: {
-    marginTop: 58,
+    marginTop: responsiveHeight(7), // 58
     textAlign: 'center',
-    maxWidth: 300,
+    maxWidth: responsiveWidth(80), // 300
     marginLeft: 'auto',
     marginRight: 'auto',
   },
 
   emailSentTitle: {
     fontWeight: 'bold',
-    fontSize: 24,
-    lineHeight: 29,
+    fontSize: responsiveFontSize(2.85), // 24
+    lineHeight: responsiveHeight(3.55), // 29
     textAlign: 'center',
     color: '#0D0E0F',
   },
 
   emailSentText: {
     fontWeight: '500',
-    fontSize: 16,
-    lineHeight: 20,
-    marginTop: 24,
+    fontSize: responsiveFontSize(1.9), // 16px
+    lineHeight: responsiveHeight(2.45), // 20px
+    marginTop: responsiveHeight(3), // 24
     textAlign: 'center',
     color: '#292B2D',
   },
 
   verification: {
     fontWeight: '500',
-    fontSize: 36,
-    lineHeight: 44,
-    maxWidth: 300,
-    marginTop: 4,
+    fontSize: responsiveFontSize(4.23), // 36
+    lineHeight: responsiveHeight(5.4), // 44
+    maxWidth: responsiveWidth(80), // 300
   },
 
   verificationCode: {
     flexDirection: 'row',
     gap: 16,
-    height: 40,
+    height: responsiveHeight(4.8), // 8
     alignItems: 'center',
-    marginTop: 20,
-    marginBottom: 15,
-  },
-
-  verificationCodeItem: {
-    fontWeight: 'bold',
-    fontSize: 32,
-    lineHeight: 39,
-    // userSelect: 'none',
-    color: '#161719',
+    marginTop: responsiveHeight(2.5), // 20px
+    marginBottom: responsiveHeight(1.8), // 15
   },
 
   nonActiveVerificationCodeItem: {
-    width: 16,
-    height: 16,
-    textAlign: 'center',
-    backgroundColor: '#E0E2E9',
-    borderRadius: 100,
+    borderBottomWidth: 2,
+    borderBottomColor: 'rgba(189,173,225,0.66)',
+    fontWeight: 'bold',
+    fontSize: responsiveFontSize(3.5), // 32
+    lineHeight: responsiveHeight(4.4), // 39px
+    userSelect: 'none',
+    color: '#161719',
   },
 
   verificationCodeSent: {
     fontWeight: '500',
-    fontSize: 16,
-    lineHeight: 19,
+    fontSize: responsiveFontSize(1.9), // 16px
+    lineHeight: responsiveHeight(2.4), // 19px
     color: '#292B2D',
-    marginTop: 16,
+    marginTop: responsiveHeight(2), // 16
   },
 
   verificationCodeTimer: {},
 
   verificationCodeTimerText: {
     fontWeight: 'bold',
-    fontSize: 18,
-    lineHeight: 22,
+    fontSize: responsiveFontSize(2.1), // 18
+    lineHeight: responsiveHeight(2.6), // 22
     color: '#7F3DFF',
   },
 });

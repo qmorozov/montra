@@ -1,10 +1,12 @@
-import { Text, SafeAreaView, TouchableOpacity, View } from 'react-native';
-import GlobalStyles from '@styles/global';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { EmailSent as EmailSentIcon } from '@assets/icons';
-import styles from '../styles';
 import { Screens } from '@typings/global';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+
+import styles from '../styles';
+import GlobalStyles from '@styles/global';
 
 const EmailSent = () => {
   const { t } = useTranslation();

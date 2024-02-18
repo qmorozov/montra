@@ -1,26 +1,31 @@
 import { StyleSheet } from 'react-native';
+import {
+  responsiveFontSize,
+  responsiveHeight,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
 
 export default StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 16,
+    padding: responsiveWidth(4), // 16
   },
 
   backButton: {
-    paddingVertical: 8,
-    paddingHorizontal: 4,
+    paddingVertical: responsiveHeight(1), // 8
+    paddingHorizontal: responsiveWidth(1), // 4
   },
 
   title: {
     fontWeight: 'bold',
-    fontSize: 18,
-    lineHeight: 22,
+    fontSize: responsiveFontSize(2.12), // 18
+    lineHeight: responsiveHeight(2.7), // 22
   },
 
   rightSide: {
-    minWidth: 22,
-    minHeight: 22,
+    minWidth: responsiveWidth(5.6), // 22
+    minHeight: responsiveHeight(3), // 22
   },
 });

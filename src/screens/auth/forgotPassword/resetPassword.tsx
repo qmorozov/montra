@@ -1,12 +1,5 @@
-import {
-  SafeAreaView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import GlobalStyles, { defaultInput, errorTextStyle } from '@styles/global';
-import styles from '@screens/auth/styles';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { MainHeader } from '@components/index';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
@@ -15,6 +8,9 @@ import * as yup from 'yup';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Fragment } from 'react';
+
+import GlobalStyles, { defaultInput, errorTextStyle } from '@styles/global';
+import styles from '@screens/auth/styles';
 
 interface IResetPasswordFormData {
   password: string;

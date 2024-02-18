@@ -1,7 +1,5 @@
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import GlobalStyles, { defaultInput, errorTextStyle } from '@styles/global';
-import { MainHeader } from '@components/index';
-import styles from '@screens/auth/styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
@@ -10,6 +8,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Fragment } from 'react';
 import { Screens } from '@typings/global';
 import { useNavigation } from '@react-navigation/native';
+import { MainHeader } from '@components/index';
+
+import styles from '@screens/auth/styles';
 
 interface IForgotPasswordFormData {
   email: string;
