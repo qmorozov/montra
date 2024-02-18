@@ -52,8 +52,9 @@ const Login = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
   } = useForm({
+    mode: 'all',
     resolver: yupResolver(loginValidationSchema),
     defaultValues: {
       email: '',
@@ -110,7 +111,11 @@ const Login = () => {
         </View>
 
         <TouchableOpacity
-          style={[GlobalStyles.primaryButton, styles.formButton]}
+          style={[
+            styles.formButton,
+            GlobalStyles.primaryButton,
+            (!isDirty || !isValid) && GlobalStyles.disabledButton,
+          ]}
           onPress={handleSubmit(onSubmitLoginData)}
         >
           <Text style={GlobalStyles.primaryButtonText}>{t('login')}</Text>

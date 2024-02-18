@@ -181,25 +181,6 @@ export default StyleSheet.create({
     maxWidth: responsiveWidth(80), // 300
   },
 
-  verificationCode: {
-    flexDirection: 'row',
-    gap: 16,
-    height: responsiveHeight(4.8), // 8
-    alignItems: 'center',
-    marginTop: responsiveHeight(2.5), // 20px
-    marginBottom: responsiveHeight(1.8), // 15
-  },
-
-  nonActiveVerificationCodeItem: {
-    borderBottomWidth: 2,
-    borderBottomColor: 'rgba(189,173,225,0.66)',
-    fontWeight: 'bold',
-    fontSize: responsiveFontSize(3.5), // 32
-    lineHeight: responsiveHeight(4.4), // 39px
-    userSelect: 'none',
-    color: '#161719',
-  },
-
   verificationCodeSent: {
     fontWeight: '500',
     fontSize: responsiveFontSize(1.9), // 16px
@@ -208,12 +189,45 @@ export default StyleSheet.create({
     marginTop: responsiveHeight(2), // 16
   },
 
-  verificationCodeTimer: {},
-
   verificationCodeTimerText: {
     fontWeight: 'bold',
     fontSize: responsiveFontSize(2.1), // 18
     lineHeight: responsiveHeight(2.6), // 22
     color: '#7F3DFF',
+  },
+
+  codeField: {
+    gap: responsiveWidth(3.9), // 16
+    justifyContent: 'flex-start',
+    marginTop: responsiveHeight(1.3), // 20px
+    marginBottom: responsiveHeight(1.2), // 15
+  },
+
+  codeFieldItemWrapper: {
+    height: responsiveHeight(6), // 60
+  },
+
+  codeFieldItem: {
+    width: 16,
+    height: 16,
+    borderRadius: 16,
+    fontSize: 0,
+    backgroundColor: '#E0E2E9',
+    marginTop: 'auto',
+    marginBottom: 'auto',
+  },
+
+  codeFieldFullItem: {
+    fontWeight: 'bold',
+    fontSize: responsiveFontSize(3.5), // 32
+    lineHeight: responsiveHeight(4.4), // 39px
+    color: '#161719',
+    width: responsiveWidth(5), // 21
+    height: responsiveHeight(4), // 33
+    backgroundColor: 'transparent',
+  },
+
+  codeFieldFocusItem: {
+    backgroundColor: 'rgba(140, 106, 206, 0.6)',
   },
 });

@@ -14,7 +14,7 @@ import { MainHeader } from '@components/index';
 import * as yup from 'yup';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Fragment } from 'react';
+import { Fragment, useMemo } from 'react';
 import CheckBox from 'expo-checkbox';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
@@ -44,6 +44,7 @@ const Register = () => {
     name: yup
       .string()
       .required(t('formsFieldsValidation.nameRequired'))
+      .matches(/^[A-Za-z]+$/, t('formsFieldsValidation.nameLettersOnly'))
       .min(2, t('formsFieldsValidation.nameMinValue')),
     email: yup
       .string()
@@ -69,8 +70,9 @@ const Register = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
   } = useForm({
+    mode: 'all',
     resolver: yupResolver(registerValidationSchema),
     defaultValues: {
       name: '',
@@ -175,7 +177,12 @@ const Register = () => {
         </View>
 
         <TouchableOpacity
-          style={[GlobalStyles.primaryButton, styles.formButton]}
+          style={[
+            styles.formButton,
+            GlobalStyles.primaryButton,
+            (!isDirty || !isValid) && GlobalStyles.disabledButton,
+          ]}
+          disabled={!isDirty || !isValid}
           onPress={handleSubmit(onSubmitRegisterData)}
         >
           <Text style={GlobalStyles.primaryButtonText}>{t('signUp')}</Text>

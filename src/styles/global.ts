@@ -48,6 +48,10 @@ export default StyleSheet.create({
     ...defaultButtonFontSize,
     color: '#7F3DFF',
   },
+
+  disabledButton: {
+    opacity: 0.5,
+  },
 });
 
 export const defaultInput: TextStyle = {

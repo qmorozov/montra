@@ -44,8 +44,9 @@ const ResetPassword = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
   } = useForm({
+    mode: 'all',
     resolver: yupResolver(loginValidationSchema),
     defaultValues: {
       password: '',
@@ -104,7 +105,11 @@ const ResetPassword = () => {
         />
 
         <TouchableOpacity
-          style={[GlobalStyles.primaryButton, styles.formButton]}
+          style={[
+            styles.formButton,
+            GlobalStyles.primaryButton,
+            (!isDirty || !isValid) && GlobalStyles.disabledButton,
+          ]}
           onPress={handleSubmit(onSubmitResetPasswordData)}
         >
           <Text style={GlobalStyles.primaryButtonText}>{t('continue')}</Text>

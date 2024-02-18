@@ -37,7 +37,8 @@
     "confirmPasswordRequired": "Confirm password is required",
     "confirmPasswordMinValue": "Confirm password must contain at least 8 characters",
     "agreeToTerms": "You must agree to the Terms of Service and Privacy Policy",
-    "passwordsMustMatch": "Passwords must match"
+    "passwordsMustMatch": "Passwords must match",
+    "nameLettersOnly": "The 'Name' field should only contain letters."
   },
   "orWith": "Or with",
   "signUpWithGoogle": "Sign Up with Google",

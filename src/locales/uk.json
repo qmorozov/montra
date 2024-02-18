@@ -35,7 +35,8 @@
         "passwordRequired": "Пароль є обов'язковим",
         "passwordMinValue": "Пароль повинен містити щонайменше 8 символів",
         "agreeToTerms": "Ви повинні погодитися з Умовами обслуговування та Політикою конфіденційності",
-        "passwordsMustMatch": "Passwords must match"
+        "passwordsMustMatch": "Passwords must match",
+        "nameLettersOnly": "The 'Name' field should only contain letters."
     },
     "orWith": "Or with",
     "signUpWithGoogle": "Sign Up with Google",
