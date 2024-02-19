@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 
 export abstract class ApiService {
-  protected static readonly baseUrl = '';
+  protected static readonly baseUrl = 'https://aleksandrboichuk.site/v1';
 
   protected static async get<T>(endpoint: string): Promise<T> {
     const url = this.buildUrl(endpoint);
@@ -11,7 +11,11 @@ export abstract class ApiService {
 
   protected static async post<T>(endpoint: string, data: any): Promise<T> {
     const url = this.buildUrl(endpoint);
-    const response = await axios.post<T>(url, data);
+    const response = await axios.post<T>(url, data, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     return this.handleResponse<T>(response);
   }
 

@@ -14,20 +14,23 @@ import { MainHeader } from '@components/index';
 import * as yup from 'yup';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Fragment, useMemo } from 'react';
+import {
+  Fragment,
+  MutableRefObject,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import CheckBox from 'expo-checkbox';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { Login } from '@screens/auth';
 import { Screens } from '@services/typings/global';
 import { Google } from '@assets/icons';
-
-interface IRegisterFormData {
-  name: string;
-  email: string;
-  password: string;
-  agreeToTerms: boolean;
-}
+import { IRegisterFormData } from '@screens/auth/dto/auth';
+import { AuthApi } from '@screens/auth/service/api.service';
+import { AxiosError } from 'axios';
 
 enum RegisterFields {
   Name = 'name',
@@ -39,6 +42,11 @@ enum RegisterFields {
 const Register = () => {
   const { t } = useTranslation();
   const navigation = useNavigation<{ navigate: (screen: Screens) => void }>();
+
+  const isEmailChangedRef: MutableRefObject<boolean> = useRef(false);
+  const prevEmailRef: MutableRefObject<string | undefined> = useRef<
+    string | undefined
+  >();
 
   const registerValidationSchema = yup.object().shape({
     name: yup
@@ -69,6 +77,8 @@ const Register = () => {
 
   const {
     control,
+    setError,
+    getValues,
     handleSubmit,
     formState: { errors, isDirty, isValid },
   } = useForm({
@@ -82,14 +92,40 @@ const Register = () => {
     } as IRegisterFormData,
   });
 
-  const onSubmitRegisterData: SubmitHandler<IRegisterFormData> = ({
+  const onSubmitRegisterData: SubmitHandler<IRegisterFormData> = async ({
     name,
     email,
     password,
-    agreeToTerms,
-  }: IRegisterFormData): void => {
-    console.log({ name, email, password, agreeToTerms });
+  }: IRegisterFormData): Promise<void> => {
+    try {
+      isEmailChangedRef.current = false;
+      const data = await AuthApi.createUser({
+        name,
+        email,
+        password,
+      });
+
+      console.log(data);
+    } catch (error: AxiosError | unknown) {
+      if (!isEmailChangedRef.current) {
+        setError(RegisterFields.Email, {
+          type: 'manual',
+          message: 'formsFieldsValidation.UserWithThisEmailAlreadyExists.',
+        });
+      }
+    }
   };
+
+  useEffect(() => {
+    const currentEmail: string = getValues(RegisterFields.Email);
+    if (
+      prevEmailRef.current !== undefined &&
+      prevEmailRef.current !== currentEmail
+    ) {
+      isEmailChangedRef.current = true;
+    }
+    prevEmailRef.current = currentEmail;
+  }, [getValues(RegisterFields.Email)]);
 
   return (
     <SafeAreaView style={GlobalStyles.droidSafeArea}>
