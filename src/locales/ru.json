@@ -36,7 +36,9 @@
         "passwordMinValue": "Пароль должен содержать не менее 8 символов",
         "agreeToTerms": "Вы должны согласиться с Условиями и Политикой конфиденциальности",
         "passwordsMustMatch": "Passwords must match",
-        "nameLettersOnly": "The 'Name' field should only contain letters."
+        "nameLettersOnly": "The Name field should only contain letters.",
+        "emailAlreadyInUsePleaseEnterADifferentEmail": "Email already in use. Please enter a different email.",
+        "passwordMaxLength": "Password must be at most 100 characters long"
     },
     "orWith": "Or with",
     "signUpWithGoogle": "Sign Up with Google",

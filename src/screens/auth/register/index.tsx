@@ -1,4 +1,11 @@
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {
+  Keyboard,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import GlobalStyles, {
   defaultInput,
   clickableText,
@@ -10,29 +17,21 @@ import GlobalStyles, {
 } from '@styles/global';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from '../styles';
-import { MainHeader } from '@components/index';
+import { MainHeader, Loader } from '@components/index';
 import * as yup from 'yup';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  Fragment,
-  MutableRefObject,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import CheckBox from 'expo-checkbox';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
-import { Login } from '@screens/auth';
 import { Screens } from '@services/typings/global';
 import { Google } from '@assets/icons';
-import { IRegisterFormData } from '@screens/auth/dto/auth';
 import { AuthApi } from '@screens/auth/service/api.service';
-import { AxiosError } from 'axios';
+import { IRegisterFormData } from '@screens/auth/dto';
+import { isEmpty } from 'lodash';
 
-enum RegisterFields {
+export enum RegisterFields {
   Name = 'name',
   Email = 'email',
   Password = 'password',
@@ -41,18 +40,19 @@ enum RegisterFields {
 
 const Register = () => {
   const { t } = useTranslation();
+  const submittedEmailRef = useRef<string | null>(null);
   const navigation = useNavigation<{ navigate: (screen: Screens) => void }>();
 
-  const isEmailChangedRef: MutableRefObject<boolean> = useRef(false);
-  const prevEmailRef: MutableRefObject<string | undefined> = useRef<
-    string | undefined
-  >();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const registerValidationSchema = yup.object().shape({
     name: yup
       .string()
       .required(t('formsFieldsValidation.nameRequired'))
-      .matches(/^[A-Za-z]+$/, t('formsFieldsValidation.nameLettersOnly'))
+      .matches(
+        /^[^\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/,
+        t('formsFieldsValidation.nameLettersOnly')
+      )
       .min(2, t('formsFieldsValidation.nameMinValue')),
     email: yup
       .string()
@@ -68,7 +68,8 @@ const Register = () => {
     password: yup
       .string()
       .required(t('formsFieldsValidation.passwordRequired'))
-      .min(8, t('formsFieldsValidation.passwordMinValue')),
+      .min(8, t('formsFieldsValidation.passwordMinValue'))
+      .max(100, t('formsFieldsValidation.passwordMaxLength')),
     agreeToTerms: yup
       .boolean()
       .required()
@@ -76,9 +77,10 @@ const Register = () => {
   });
 
   const {
+    reset,
+    watch,
     control,
     setError,
-    getValues,
     handleSubmit,
     formState: { errors, isDirty, isValid },
   } = useForm({
@@ -92,163 +94,184 @@ const Register = () => {
     } as IRegisterFormData,
   });
 
+  const emailWatch: string = watch(RegisterFields.Email);
+
+  useEffect(() => {
+    if (!isEmpty(emailWatch) && emailWatch === submittedEmailRef.current) {
+      setError(RegisterFields.Email, {
+        type: 'manual',
+        message: t(
+          'formsFieldsValidation.emailAlreadyInUsePleaseEnterADifferentEmail'
+        ),
+      });
+    }
+  }, [emailWatch]);
+
   const onSubmitRegisterData: SubmitHandler<IRegisterFormData> = async ({
     name,
     email,
     password,
   }: IRegisterFormData): Promise<void> => {
     try {
-      isEmailChangedRef.current = false;
-      const data = await AuthApi.createUser({
+      setIsLoading(true);
+
+      const registerData = await AuthApi.createUser({
         name,
         email,
         password,
       });
 
-      console.log(data);
-    } catch (error: AxiosError | unknown) {
-      if (!isEmailChangedRef.current) {
+      console.log(registerData);
+
+      navigation.navigate(Screens.VERIFICATION);
+
+      setIsLoading(false);
+
+      submittedEmailRef.current = email;
+
+      reset();
+    } catch (error: any) {
+      console.log(error.response?.data);
+
+      if (error) {
         setError(RegisterFields.Email, {
           type: 'manual',
-          message: 'formsFieldsValidation.UserWithThisEmailAlreadyExists.',
+          message: t(`formsFieldsValidation.${error.response?.data?.message}`),
         });
       }
+
+      setIsLoading(false);
     }
   };
 
-  useEffect(() => {
-    const currentEmail: string = getValues(RegisterFields.Email);
-    if (
-      prevEmailRef.current !== undefined &&
-      prevEmailRef.current !== currentEmail
-    ) {
-      isEmailChangedRef.current = true;
-    }
-    prevEmailRef.current = currentEmail;
-  }, [getValues(RegisterFields.Email)]);
-
   return (
-    <SafeAreaView style={GlobalStyles.droidSafeArea}>
-      <MainHeader title={t('signUp')} />
-      <View style={[GlobalStyles.wrapper, styles.authPageWrapper]}>
-        <View style={styles.formWrapper}>
-          <Controller
-            name={RegisterFields.Name}
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <Fragment>
-                <TextInput
-                  value={value}
-                  style={defaultInput}
-                  onChangeText={onChange}
-                  placeholder={t('formsFields.name')}
-                />
-                <Text style={errorTextStyle}>{errors.name?.message}</Text>
-              </Fragment>
-            )}
-          />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <SafeAreaView style={GlobalStyles.droidSafeArea}>
+        <MainHeader title={t('signUp')} />
+        <View style={[GlobalStyles.wrapper, styles.authPageWrapper]}>
+          <Loader visible={isLoading} />
 
-          <Controller
-            control={control}
-            name={RegisterFields.Email}
-            render={({ field: { onChange, value } }) => (
-              <Fragment>
-                <TextInput
-                  value={value}
-                  style={defaultInput}
-                  onChangeText={onChange}
-                  keyboardType="email-address"
-                  placeholder={t('formsFields.email')}
-                />
-                <Text style={errorTextStyle}>{errors.email?.message}</Text>
-              </Fragment>
-            )}
-          />
+          <View style={styles.formWrapper}>
+            <Controller
+              name={RegisterFields.Name}
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <Fragment>
+                  <TextInput
+                    value={value}
+                    style={defaultInput}
+                    onChangeText={onChange}
+                    placeholder={t('formsFields.name')}
+                  />
+                  <Text style={errorTextStyle}>{errors.name?.message}</Text>
+                </Fragment>
+              )}
+            />
 
-          <Controller
-            control={control}
-            name={RegisterFields.Password}
-            render={({ field: { onChange, value } }) => (
-              <Fragment>
-                <TextInput
-                  value={value}
-                  secureTextEntry
-                  style={defaultInput}
-                  onChangeText={onChange}
-                  textContentType="password"
-                  placeholder={t('formsFields.password')}
-                />
-                <Text style={errorTextStyle}>{errors.password?.message}</Text>
-              </Fragment>
-            )}
-          />
+            <Controller
+              control={control}
+              name={RegisterFields.Email}
+              render={({ field: { onChange, value } }) => (
+                <Fragment>
+                  <TextInput
+                    value={value}
+                    style={defaultInput}
+                    onChangeText={onChange}
+                    keyboardType="email-address"
+                    placeholder={t('formsFields.email')}
+                  />
+                  <Text style={errorTextStyle}>{errors.email?.message}</Text>
+                </Fragment>
+              )}
+            />
 
-          <Controller
-            control={control}
-            name={RegisterFields.AgreeToTerms}
-            render={({ field: { onChange, value } }) => (
-              <View style={defaultCheckboxWrapper}>
-                <CheckBox
-                  value={value}
-                  style={defaultCheckbox}
-                  onValueChange={() => onChange(!value)}
-                  color={'#7F3DFF'}
-                />
-                <View>
-                  <Text style={defaultCheckboxText}>
-                    {t('formsFields.Terms&PrivacyPolicy')}
-                    <TouchableOpacity>
-                      <Text style={[defaultCheckboxText, clickableText]}>
-                        {t('formsFields.Terms&PrivacyPolicyWithLink')}
-                      </Text>
-                    </TouchableOpacity>
-                  </Text>
-                  <Text style={[errorTextStyle, { marginLeft: 0 }]}>
-                    {errors.agreeToTerms?.message}
-                  </Text>
+            <Controller
+              control={control}
+              name={RegisterFields.Password}
+              render={({ field: { onChange, value } }) => (
+                <Fragment>
+                  <TextInput
+                    value={value}
+                    secureTextEntry
+                    style={defaultInput}
+                    onChangeText={onChange}
+                    textContentType="password"
+                    placeholder={t('formsFields.password')}
+                  />
+                  <Text style={errorTextStyle}>{errors.password?.message}</Text>
+                </Fragment>
+              )}
+            />
+
+            <Controller
+              control={control}
+              name={RegisterFields.AgreeToTerms}
+              render={({ field: { onChange, value } }) => (
+                <View style={defaultCheckboxWrapper}>
+                  <CheckBox
+                    value={value}
+                    style={defaultCheckbox}
+                    onValueChange={() => onChange(!value)}
+                    color={'#7F3DFF'}
+                  />
+                  <View>
+                    <Text style={defaultCheckboxText}>
+                      {t('formsFields.Terms&PrivacyPolicy')}
+                      <TouchableOpacity>
+                        <Text style={[defaultCheckboxText, clickableText]}>
+                          {t('formsFields.Terms&PrivacyPolicyWithLink')}
+                        </Text>
+                      </TouchableOpacity>
+                    </Text>
+                    <Text style={[errorTextStyle, { marginLeft: 0 }]}>
+                      {errors.agreeToTerms?.message}
+                    </Text>
+                  </View>
                 </View>
-              </View>
-            )}
-          />
-        </View>
+              )}
+            />
+          </View>
 
-        <TouchableOpacity
-          style={[
-            styles.formButton,
-            GlobalStyles.primaryButton,
-            (!isDirty || !isValid) && GlobalStyles.disabledButton,
-          ]}
-          disabled={!isDirty || !isValid}
-          onPress={handleSubmit(onSubmitRegisterData)}
-        >
-          <Text style={GlobalStyles.primaryButtonText}>{t('signUp')}</Text>
-        </TouchableOpacity>
-
-        <Text style={styles.orWithText}>{t('orWith')}</Text>
-
-        <TouchableOpacity style={styles.signUpBySocial}>
-          <Google />
-          <Text style={defaultButtonFontSize}>{t('signUpWithGoogle')}</Text>
-        </TouchableOpacity>
-
-        <View style={styles.dontOrHaveAccount}>
-          <Text style={styles.dontOrHaveAccountText}>
-            {t('alreadyHaveAnAccount')}
-          </Text>
-          <TouchableOpacity onPress={() => navigation.navigate(Screens.LOGIN)}>
-            <Text
-              style={[
-                styles.dontOrHaveAccountText,
-                clickableText,
-                { textDecorationLine: 'underline' },
-              ]}
-            >
-              {t('login')}
-            </Text>
+          <TouchableOpacity
+            style={[
+              styles.formButton,
+              GlobalStyles.primaryButton,
+              (!isDirty || !isValid) && GlobalStyles.disabledButton,
+            ]}
+            disabled={!isDirty || !isValid}
+            onPress={handleSubmit(onSubmitRegisterData)}
+          >
+            <Text style={GlobalStyles.primaryButtonText}>{t('signUp')}</Text>
           </TouchableOpacity>
+
+          <Text style={styles.orWithText}>{t('orWith')}</Text>
+
+          <TouchableOpacity style={styles.signUpBySocial}>
+            <Google />
+            <Text style={defaultButtonFontSize}>{t('signUpWithGoogle')}</Text>
+          </TouchableOpacity>
+
+          <View style={styles.dontOrHaveAccount}>
+            <Text style={styles.dontOrHaveAccountText}>
+              {t('alreadyHaveAnAccount')}
+            </Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate(Screens.LOGIN)}
+            >
+              <Text
+                style={[
+                  styles.dontOrHaveAccountText,
+                  clickableText,
+                  { textDecorationLine: 'underline' },
+                ]}
+              >
+                {t('login')}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 };
 

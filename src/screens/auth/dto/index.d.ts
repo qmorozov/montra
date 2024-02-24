@@ -11,3 +11,8 @@ export interface IRegisterFormData {
   password: string;
   agreeToTerms: boolean;
 }
+
+export interface ILoginFormData {
+  email: string;
+  password: string;
+}

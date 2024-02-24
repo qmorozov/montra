@@ -55,15 +55,21 @@ export default StyleSheet.create({
 });
 
 export const defaultInput: TextStyle = {
-  fontSize: responsiveFontSize(1.9), // 16
-  lineHeight: responsiveHeight(4.1), // 18
-  paddingHorizontal: responsiveWidth(4), // 16
-  paddingVertical: responsiveHeight(1.4), // 12
-  borderRadius: responsiveWidth(4), // 16
+  fontSize: 16, // 16
+  // fontSize: responsiveFontSize(1.9), // 16
+  lineHeight: 18, // 18
+  // lineHeight: responsiveHeight(4.1), // 18
+  paddingHorizontal: 16, // 16
+  // paddingHorizontal: responsiveWidth(4), // 16
+  paddingVertical: 12, // 12
+  // paddingVertical: responsiveHeight(1.4), // 12
+  borderRadius: 16, // 16
+  // borderRadius: responsiveWidth(4), // 16
   borderWidth: 1,
   borderColor: '#F1F1FA',
   color: '#91919F',
-  height: responsiveHeight(6.8), // 56
+  height: 56, // 56
+  // height: responsiveHeight(6.8), // 56
   margin: 0,
   padding: 0,
 };

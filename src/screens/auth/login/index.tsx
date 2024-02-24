@@ -16,11 +16,8 @@ import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { Screens } from '@services/typings/global';
 import styles from '../styles';
-
-interface ILoginFormData {
-  email: string;
-  password: string;
-}
+import { AuthApi } from '@screens/auth/service/api.service';
+import { ILoginFormData } from '@screens/auth/dto';
 
 enum LoginFields {
   Email = 'email',
@@ -46,7 +43,8 @@ const Login = () => {
     password: yup
       .string()
       .required(t('formsFieldsValidation.passwordRequired'))
-      .min(8, t('formsFieldsValidation.passwordMinValue')),
+      .min(8, t('formsFieldsValidation.passwordMinValue'))
+      .max(100, t('formsFieldsValidation.passwordMaxLength')),
   });
 
   const {
@@ -62,11 +60,20 @@ const Login = () => {
     } as ILoginFormData,
   });
 
-  const onSubmitLoginData: SubmitHandler<ILoginFormData> = ({
+  const onSubmitLoginData: SubmitHandler<ILoginFormData> = async ({
     email,
     password,
-  }: ILoginFormData): void => {
-    console.log({ email, password });
+  }: ILoginFormData): Promise<void> => {
+    try {
+      const loginData = await AuthApi.loginUser({
+        email,
+        password,
+      });
+
+      console.log(loginData);
+    } catch (error: any) {
+      console.log(error.response?.data);
+    }
   };
 
   return (

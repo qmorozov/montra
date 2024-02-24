@@ -38,7 +38,10 @@
     "confirmPasswordMinValue": "Confirm password must contain at least 8 characters",
     "agreeToTerms": "You must agree to the Terms of Service and Privacy Policy",
     "passwordsMustMatch": "Passwords must match",
-    "nameLettersOnly": "The 'Name' field should only contain letters."
+    "nameLettersOnly": "The Name field should only contain letters.",
+    "emailAlreadyInUsePleaseEnterADifferentEmail": "Email already in use. Please enter a different email.",
+    "userWithThisEmailAlreadyExists": "User with this email already exists",
+    "passwordMaxLength": "Password must be at most 100 characters long"
   },
   "orWith": "Or with",
   "signUpWithGoogle": "Sign Up with Google",
@@ -55,5 +58,5 @@
   "weSendVerificationCodeToYourEmailYouCanCheckYourInbox": "We send verification code to your\nemail {{email}}. You can\ncheck your inbox.",
   "iDidntReceivedTheCodeSendAgain": "I didn’t received the code? Send again",
   "verify": "Verify",
-  "codeIsIncorrect": "Code is incorrect",
+  "codeIsIncorrect": "Code is incorrect"
 }

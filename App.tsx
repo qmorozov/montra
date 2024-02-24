@@ -12,17 +12,11 @@ import {
   ResetPassword,
   Verification,
 } from '@screens/auth';
-import {
-  initialWindowMetrics,
-  SafeAreaProvider,
-  SafeAreaView,
-} from 'react-native-safe-area-context';
 import { Screens } from '@services/typings/global';
 import { useFonts } from 'expo-font';
 import { I18nextProvider } from 'react-i18next';
 import I18next from './src/services/i18next';
 import { StatusBar } from 'react-native';
-import GlobalStyles from '@styles/global';
 
 const Stack = createNativeStackNavigator();
 
@@ -50,8 +44,9 @@ export default function App() {
   }
 
   return (
-    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+    <>
       <StatusBar
+        // hidden
         translucent={true}
         backgroundColor={'#fff'}
         barStyle="dark-content"
@@ -76,6 +71,6 @@ export default function App() {
           </NavigationContainer>
         </I18nextProvider>
       </Provider>
-    </SafeAreaProvider>
+    </>
   );
 }

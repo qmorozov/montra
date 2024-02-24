@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
 import Swiper from 'react-native-swiper';
 import { useTranslation } from 'react-i18next';
-import { IAuthSlide } from './dto/auth';
+import { IAuthSlide } from './dto';
 import GlobalStyles from '@styles/global';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
