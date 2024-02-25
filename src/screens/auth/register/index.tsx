@@ -6,6 +6,24 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import CheckBox from 'expo-checkbox';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Fragment, useEffect, useRef, useState } from 'react';
+import * as yup from 'yup';
+import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
+import { isEmpty } from 'lodash';
+
+import { Google } from '@assets/icons';
+import { MainHeader, Loader } from '@components/index';
+import { Screens } from '@services/typings/global';
+import { useService } from '@hooks/useService';
+import { AuthApi } from '@screens/auth/services/api.service';
+import { IRegisterFormData } from '@screens/auth/dto';
+import { UserServiceProvider } from '@screens/main/services/user.service';
+
 import GlobalStyles, {
   defaultInput,
   clickableText,
@@ -15,23 +33,7 @@ import GlobalStyles, {
   defaultButtonFontSize,
   defaultCheckboxText,
 } from '@styles/global';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from '../styles';
-import { MainHeader, Loader } from '@components/index';
-import * as yup from 'yup';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Fragment, useEffect, useRef, useState } from 'react';
-import CheckBox from 'expo-checkbox';
-import { useTranslation } from 'react-i18next';
-import { useNavigation } from '@react-navigation/native';
-import { Screens } from '@services/typings/global';
-import { Google } from '@assets/icons';
-import { AuthApi } from '@screens/auth/services/api.service';
-import { IRegisterFormData } from '@screens/auth/dto';
-import { isEmpty } from 'lodash';
-import { useService } from '@hooks/useService';
-import { UserServiceProvider } from '@screens/main/services/user.service';
 
 export enum RegisterFields {
   Name = 'name',
@@ -42,12 +44,13 @@ export enum RegisterFields {
 
 const Register = () => {
   const { t } = useTranslation();
-  const submittedEmailRef = useRef<string | null>(null);
   const navigation = useNavigation<{ navigate: (screen: Screens) => void }>();
+
+  const UserService = useService(UserServiceProvider);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const UserService = useService(UserServiceProvider);
+  const submittedEmailRef = useRef<string | null>(null);
 
   const registerValidationSchema = yup.object().shape({
     name: yup
@@ -100,7 +103,7 @@ const Register = () => {
 
   const emailWatch: string = watch(RegisterFields.Email);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (!isEmpty(emailWatch) && emailWatch === submittedEmailRef.current) {
       setError(RegisterFields.Email, {
         type: 'manual',
@@ -138,8 +141,6 @@ const Register = () => {
 
       navigation.navigate(Screens.VERIFICATION);
 
-      setIsLoading(false);
-
       submittedEmailRef.current = email;
 
       reset();
@@ -150,9 +151,9 @@ const Register = () => {
           message: t(`formsFieldsValidation.${error.response?.data?.message}`),
         });
       }
-
-      setIsLoading(false);
     }
+
+    setIsLoading(false);
   };
 
   return (
