@@ -53,7 +53,7 @@ const ForgotPassword = () => {
   const onSubmitForgotPasswordData: SubmitHandler<IForgotPasswordFormData> = ({
     email,
   }: IForgotPasswordFormData): void => {
-    console.log(email);
+    // console.log(email);
     navigation.navigate(Screens.EMAILSENT);
   };
 

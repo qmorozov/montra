@@ -6,6 +6,8 @@ export enum Screens {
   EMAILSENT = 'emailSent',
   RESETPASSWORD = 'resetPassword',
   VERIFICATION = 'verification',
+  //
+  HOME = 'home',
 }
 
 export type LanguageResources = {

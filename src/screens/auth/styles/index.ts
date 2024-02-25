@@ -200,7 +200,7 @@ export default StyleSheet.create({
     gap: responsiveWidth(3.9), // 16
     justifyContent: 'flex-start',
     marginTop: responsiveHeight(1.3), // 20px
-    marginBottom: responsiveHeight(1.2), // 15
+    // marginBottom: responsiveHeight(1.2), // 15
   },
 
   codeFieldItemWrapper: {

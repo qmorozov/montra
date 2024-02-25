@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { Screens } from '@services/typings/global';
 import styles from '../styles';
-import { AuthApi } from '@screens/auth/service/api.service';
+import { AuthApi } from '@screens/auth/services/api.service';
 import { ILoginFormData } from '@screens/auth/dto';
 
 enum LoginFields {
@@ -70,9 +70,9 @@ const Login = () => {
         password,
       });
 
-      console.log(loginData);
+      // console.log(loginData);
     } catch (error: any) {
-      console.log(error.response?.data);
+      // console.log(error.response?.data);
     }
   };
 

@@ -1,5 +1,6 @@
 import { ApiService } from '@services/api.service';
 import { IRegisterFormData, ILoginFormData } from '@screens/auth/dto';
+import { IUserState } from '@screens/main/stores/user.store';
 
 export abstract class AuthApi extends ApiService {
   static async createUser(userData: Omit<IRegisterFormData, 'agreeToTerms'>) {
@@ -8,5 +9,13 @@ export abstract class AuthApi extends ApiService {
 
   static async loginUser(userData: ILoginFormData) {
     return this.post('auth/login', userData);
+  }
+
+  static async emailVerify(emailCodeVerify: { code: string | number }) {
+    return this.post('auth/verification/email/verify', emailCodeVerify);
+  }
+
+  static async emailResendVerify(userId: IUserState['id']) {
+    return this.post('auth/verification/email/send-letter', { userId });
   }
 }

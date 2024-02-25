@@ -27,9 +27,11 @@ import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { Screens } from '@services/typings/global';
 import { Google } from '@assets/icons';
-import { AuthApi } from '@screens/auth/service/api.service';
+import { AuthApi } from '@screens/auth/services/api.service';
 import { IRegisterFormData } from '@screens/auth/dto';
 import { isEmpty } from 'lodash';
+import { useService } from '@hooks/useService';
+import { UserServiceProvider } from '@screens/main/services/user.service';
 
 export enum RegisterFields {
   Name = 'name',
@@ -44,6 +46,8 @@ const Register = () => {
   const navigation = useNavigation<{ navigate: (screen: Screens) => void }>();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const UserService = useService(UserServiceProvider);
 
   const registerValidationSchema = yup.object().shape({
     name: yup
@@ -115,13 +119,22 @@ const Register = () => {
     try {
       setIsLoading(true);
 
-      const registerData = await AuthApi.createUser({
+      const registerData = (await AuthApi.createUser({
+        name,
+        email,
+        password,
+      })) as {
+        data: {
+          id: string;
+        };
+      };
+
+      await UserService.updateUserData({
+        id: registerData.data?.id,
         name,
         email,
         password,
       });
-
-      console.log(registerData);
 
       navigation.navigate(Screens.VERIFICATION);
 
@@ -131,8 +144,6 @@ const Register = () => {
 
       reset();
     } catch (error: any) {
-      console.log(error.response?.data);
-
       if (error) {
         setError(RegisterFields.Email, {
           type: 'manual',

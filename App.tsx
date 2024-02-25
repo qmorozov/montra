@@ -1,34 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import store from '@services/app-store';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {
-  Auth,
-  Login,
-  Register,
-  ForgotPassword,
-  EmailSent,
-  ResetPassword,
-  Verification,
-} from '@screens/auth';
-import { Screens } from '@services/typings/global';
 import { useFonts } from 'expo-font';
 import { I18nextProvider } from 'react-i18next';
 import I18next from './src/services/i18next';
 import { StatusBar } from 'react-native';
-
-const Stack = createNativeStackNavigator();
-
-const screens = [
-  { name: Screens.LOGIN, component: Login },
-  { name: Screens.REGISTER, component: Register },
-  { name: Screens.FORGOTPASSWORD, component: ForgotPassword },
-  { name: Screens.AUTH, component: Auth },
-  { name: Screens.EMAILSENT, component: EmailSent },
-  { name: Screens.RESETPASSWORD, component: ResetPassword },
-  { name: Screens.VERIFICATION, component: Verification },
-];
+import Index from './src';
 
 export default function App() {
   const [fontsLoaded, fontError] = useFonts({
@@ -46,29 +23,13 @@ export default function App() {
   return (
     <>
       <StatusBar
-        // hidden
         translucent={true}
         backgroundColor={'#fff'}
         barStyle="dark-content"
       />
       <Provider store={store}>
         <I18nextProvider i18n={I18next}>
-          <NavigationContainer>
-            <Stack.Navigator
-              screenOptions={{
-                headerShown: false,
-              }}
-              initialRouteName={Screens.AUTH}
-            >
-              {screens.map((screen) => (
-                <Stack.Screen
-                  key={screen.name}
-                  name={screen.name}
-                  component={screen.component}
-                />
-              ))}
-            </Stack.Navigator>
-          </NavigationContainer>
+          <Index />
         </I18nextProvider>
       </Provider>
     </>
