@@ -10,19 +10,19 @@ import CheckBox from 'expo-checkbox';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef } from 'react';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { isEmpty } from 'lodash';
 
 import { Google } from '@assets/icons';
-import { MainHeader, Loader } from '@components/index';
+import { MainHeader } from '@components/index';
 import { Screens } from '@services/typings/global';
 import { useService } from '@hooks/useService';
 import { AuthApi } from '@screens/auth/services/api.service';
 import { IRegisterFormData } from '@screens/auth/dto';
-import { UserServiceProvider } from '@screens/main/services/user.service';
+import { MainServiceProvider } from '@screens/main/services/main.service';
 
 import GlobalStyles, {
   defaultInput,
@@ -46,9 +46,7 @@ const Register = () => {
   const { t } = useTranslation();
   const navigation = useNavigation<{ navigate: (screen: Screens) => void }>();
 
-  const UserService = useService(UserServiceProvider);
-
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const MainService = useService(MainServiceProvider);
 
   const submittedEmailRef = useRef<string | null>(null);
 
@@ -120,7 +118,7 @@ const Register = () => {
     password,
   }: IRegisterFormData): Promise<void> => {
     try {
-      setIsLoading(true);
+      MainService.setLoadingState(true);
 
       const registerData = (await AuthApi.createUser({
         name,
@@ -132,7 +130,7 @@ const Register = () => {
         };
       };
 
-      await UserService.updateUserData({
+      await MainService.updateUserData({
         id: registerData.data?.id,
         name,
         email,
@@ -153,7 +151,7 @@ const Register = () => {
       }
     }
 
-    setIsLoading(false);
+    MainService.setLoadingState(false);
   };
 
   return (
@@ -161,8 +159,6 @@ const Register = () => {
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
         <MainHeader title={t('signUp')} />
         <View style={[GlobalStyles.wrapper, styles.authPageWrapper]}>
-          <Loader visible={isLoading} />
-
           <View style={styles.formWrapper}>
             <Controller
               name={RegisterFields.Name}

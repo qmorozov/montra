@@ -18,6 +18,12 @@ import { Screens } from '@services/typings/global';
 import styles from '../styles';
 import { AuthApi } from '@screens/auth/services/api.service';
 import { ILoginFormData } from '@screens/auth/dto';
+import { useService } from '@hooks/useService';
+import { AuthServiceProvider } from '@screens/auth/services/auth.service';
+import { useAppSelector } from '@hooks/useAppRedux';
+import { RegisterFields } from '@screens/auth/register';
+import { MainServiceProvider } from '@screens/main/services/main.service';
+import { useTypedSelector } from '@hooks/useTypedSelector';
 
 enum LoginFields {
   Email = 'email',
@@ -27,6 +33,11 @@ enum LoginFields {
 const Login = () => {
   const { t } = useTranslation();
   const navigation = useNavigation<{ navigate: (screen: Screens) => void }>();
+
+  const AuthService = useService(AuthServiceProvider);
+  const MainService = useService(MainServiceProvider);
+
+  const { signed } = useTypedSelector((state) => state.auth);
 
   const loginValidationSchema = yup.object().shape({
     email: yup
@@ -49,6 +60,7 @@ const Login = () => {
 
   const {
     control,
+    setError,
     handleSubmit,
     formState: { errors, isDirty, isValid },
   } = useForm({
@@ -65,15 +77,31 @@ const Login = () => {
     password,
   }: ILoginFormData): Promise<void> => {
     try {
-      const loginData = await AuthApi.loginUser({
+      MainService.setLoadingState(true);
+
+      const loginData = (await AuthApi.loginUser({
         email,
         password,
-      });
+      })) as { accessToken: string; refreshToken: string };
 
-      // console.log(loginData);
+      if (loginData) {
+        await AuthService.saveTokens(loginData);
+        await AuthService.updateSignInData(true);
+      }
+
+      if (signed) {
+        navigation.navigate(Screens.HOME);
+      }
     } catch (error: any) {
-      // console.log(error.response?.data);
+      if (error) {
+        setError(RegisterFields.Password, {
+          type: 'manual',
+          message: t(`formsFieldsValidation.incorrectCredentials`),
+        });
+      }
     }
+
+    MainService.setLoadingState(false);
   };
 
   return (

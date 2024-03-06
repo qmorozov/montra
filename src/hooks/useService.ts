@@ -1,16 +1,12 @@
+import { useStore } from 'react-redux';
 import { ServiceProviderDispatched } from '@services/service';
-import { useAppDispatch } from '@hooks/useAppRedux';
-import { AppState } from '@services/app-store';
-import { useTypedSelector } from '@hooks/useTypedSelector';
+import { AppState, useAppDispatch } from '@services/store/app-store';
 
 export function useService<S extends ServiceProviderDispatched>(
   serviceProvider: S
 ): ReturnType<S['service']> {
   const dispatch = useAppDispatch();
-  const slice = useTypedSelector((state) =>
-    serviceProvider.slice
-      ? state[serviceProvider.slice as keyof AppState]
-      : undefined
-  );
-  return serviceProvider.service(slice, dispatch);
+  const store = useStore<AppState>();
+
+  return serviceProvider.service(store.getState(), dispatch);
 }

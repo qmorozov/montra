@@ -41,7 +41,8 @@
     "nameLettersOnly": "The Name field should only contain letters.",
     "emailAlreadyInUsePleaseEnterADifferentEmail": "Email already in use. Please enter a different email.",
     "userWithThisEmailAlreadyExists": "User with this email already exists",
-    "passwordMaxLength": "Password must be at most 100 characters long"
+    "passwordMaxLength": "Password must be at most 100 characters long",
+    "incorrectCredentials": "Incorrect username or password. Please try again."
   },
   "orWith": "Or with",
   "signUpWithGoogle": "Sign Up with Google",

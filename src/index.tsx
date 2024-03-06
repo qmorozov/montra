@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useAppSelector } from '@hooks/useAppRedux';
+import { memo, useEffect } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Screens } from '@typings/global';
 import {
@@ -15,6 +14,11 @@ import { Home } from '@screens/main';
 import { NavigationContainer } from '@react-navigation/native';
 import { useService } from '@hooks/useService';
 import { AuthServiceProvider } from '@screens/auth/services/auth.service';
+import { Loader } from '@components/index';
+import { MainServiceProvider } from '@screens/main/services/main.service';
+import { useTypedSelector } from '@hooks/useTypedSelector';
+import { Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Stack = createNativeStackNavigator();
 
@@ -41,35 +45,45 @@ const screens = [
   { name: Screens.HOME, component: Home, requiredSigned: true },
 ];
 
-const Index = () => {
-  const { signed, loading } = useAppSelector((state) => state.auth);
+const Index = memo(() => {
   const AuthService = useService(AuthServiceProvider);
+  const MainService = useService(MainServiceProvider);
 
-  useEffect(() => {
-    AuthService.getDataFromStorage();
+  const { signed } = useTypedSelector((state) => state.auth);
+  const { loading, refreshToken } = useTypedSelector((state) => state.global);
+
+  const getAppData = async (): Promise<void> => {
+    await AuthService.getAuthDataFromStorage();
+  };
+
+  useEffect((): void => {
+    getAppData();
   }, []);
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-        initialRouteName={!loading && signed ? Screens.HOME : Screens.AUTH}
-      >
-        {screens.map((screen) =>
-          (screen.requiredSigned && !signed) ||
-          (!screen.requiredSigned && signed) ? null : (
-            <Stack.Screen
-              key={screen.name}
-              name={screen.name}
-              component={screen.component}
-            />
-          )
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <>
+      <Loader visible={loading} />
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+          initialRouteName={!loading && signed ? Screens.HOME : Screens.AUTH}
+        >
+          {screens.map((screen) =>
+            (screen.requiredSigned && !signed) ||
+            (!screen.requiredSigned && signed) ? null : (
+              <Stack.Screen
+                key={screen.name}
+                name={screen.name}
+                component={screen.component}
+              />
+            )
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
   );
-};
+});
 
 export default Index;

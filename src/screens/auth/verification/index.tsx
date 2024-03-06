@@ -23,6 +23,8 @@ import { Loader, MainHeader } from '@components/index';
 
 import GlobalStyles, { errorTextStyle } from '@styles/global';
 import styles from '../styles';
+import { MainServiceProvider } from '@screens/main/services/main.service';
+import { useTypedSelector } from '@hooks/useTypedSelector';
 
 const TIMER_INITIAL_VALUE = 60;
 const CODE_LENGTH = 6;
@@ -30,15 +32,16 @@ const CODE_LENGTH = 6;
 const Verification = () => {
   const { t } = useTranslation();
   const navigation = useNavigation<{ navigate: (screen: Screens) => void }>();
-  const AuthService = useService(AuthServiceProvider);
 
-  const { signed } = useAppSelector((state) => state.auth);
-  const { id, email } = useAppSelector((state) => state.user);
+  const AuthService = useService(AuthServiceProvider);
+  const MainService = useService(MainServiceProvider);
+
+  const { signed } = useTypedSelector((state) => state.auth);
+  const { id, email } = useTypedSelector((state) => state.user);
 
   const [value, setValue] = useState('');
   const [errorText, setErrorText] = useState<string>('');
   const [timer, setTimer] = useState<number>(TIMER_INITIAL_VALUE);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [resendDisabled, setResendDisabled] = useState<boolean>(true);
 
   useEffect(() => {
@@ -67,7 +70,7 @@ const Verification = () => {
 
   const handleVerify = useCallback(async (): Promise<void> => {
     try {
-      setIsLoading(true);
+      MainService.setLoadingState(true);
 
       const verificationResponse = (await AuthApi.emailVerify({
         code: value,
@@ -83,7 +86,7 @@ const Verification = () => {
       handleVerificationError(error);
     } finally {
       setValue('');
-      setIsLoading(false);
+      MainService.setLoadingState(false);
     }
   }, [value, signed, navigation]);
 
@@ -124,8 +127,6 @@ const Verification = () => {
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
         <MainHeader title={t('verification')} />
         <View style={[GlobalStyles.wrapper, { justifyContent: 'flex-end' }]}>
-          <Loader visible={isLoading} />
-
           <Text style={styles.verification}>
             {t('enterYourVerificationCode')}
           </Text>

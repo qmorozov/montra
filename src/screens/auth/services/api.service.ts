@@ -18,4 +18,12 @@ export abstract class AuthApi extends ApiService {
   static async emailResendVerify(userId: IUserState['id']) {
     return this.post('auth/verification/email/send-letter', { userId });
   }
+
+  static async refreshToken(refreshToken: string) {
+    return this.postWithToken('auth/refresh', refreshToken);
+  }
+
+  static async getUserData(token: string) {
+    return this.getWithToken('user/profile', token);
+  }
 }

@@ -1,15 +1,16 @@
-import { makeService } from '@services/service';
-import { AppState } from '@services/app-store';
-import { setLoading, signIn } from '@screens/auth/store/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { makeService } from '@services/service';
+import { AppState } from '@services/store/app-store';
+import { GlobalSlice } from '@services/store/global.store';
+import { AuthSlice } from '@screens/auth/store/auth';
 
 export const AuthServiceProvider = makeService(
   undefined,
-  (appState: AppState, dispatch) => {
+  (appState: AppState, dispatch: any) => {
     return {
       async updateSignInData(isUserSignedIn: boolean): Promise<void> {
-        dispatch(signIn(isUserSignedIn));
-
+        console.log('AuthServiceProvider', appState);
+        dispatch(AuthSlice.actions.signIn(isUserSignedIn));
         try {
           await AsyncStorage.setItem(
             '@auth',
@@ -20,15 +21,17 @@ export const AuthServiceProvider = makeService(
         }
       },
 
-      async getDataFromStorage(): Promise<void> {
+      async getAuthDataFromStorage(): Promise<void> {
         try {
-          dispatch(setLoading(true));
+          dispatch(GlobalSlice.actions.setLoading(true));
 
           const storedData = await AsyncStorage.getItem('@auth');
 
           if (storedData) {
             const { signed } = JSON.parse(storedData);
-            dispatch(signIn(signed));
+            dispatch(AuthSlice.actions.signIn(signed));
+
+            console.log(storedData);
           }
         } catch (error) {
           console.error(
@@ -36,7 +39,7 @@ export const AuthServiceProvider = makeService(
             error
           );
         } finally {
-          dispatch(setLoading(false));
+          dispatch(GlobalSlice.actions.setLoading(false));
         }
       },
 

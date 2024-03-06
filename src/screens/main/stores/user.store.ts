@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
+import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit';
 export interface IUserState {
   id: string;
   email: string;
@@ -13,7 +12,7 @@ export interface IUserState {
   email_verified?: boolean;
 }
 
-const initialState: IUserState = {
+export const initialState: IUserState = {
   id: '',
   email: '',
   password: '',
@@ -26,7 +25,7 @@ const initialState: IUserState = {
   email_verified: false,
 };
 
-const userSlice = createSlice({
+export const UserSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
@@ -44,6 +43,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { updateUserData, setPhoneVerified, setEmailVerified } =
-  userSlice.actions;
-export default userSlice;
+export const UserReducer: Reducer<IUserState> = UserSlice.reducer;
+
+export default UserReducer;

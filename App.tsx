@@ -1,11 +1,12 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import store from '@services/app-store';
+import React, { useState } from 'react';
+import { Provider, useSelector } from 'react-redux';
+import store from '@services/store/app-store';
 import { useFonts } from 'expo-font';
 import { I18nextProvider } from 'react-i18next';
 import I18next from './src/services/i18next';
 import { StatusBar } from 'react-native';
 import Index from './src';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App() {
   const [fontsLoaded, fontError] = useFonts({
@@ -19,6 +20,19 @@ export default function App() {
   if (!fontsLoaded && !fontError) {
     return null;
   }
+
+  // const [loaded, setLoaded] = useState(false);
+  //
+  // const ffff = async () => {
+  //   const storedData = await AsyncStorage.getItem('@auth');
+  //   if (storedData != null) {
+  //     const { signed } = JSON.parse(storedData);
+  //
+  //     setLoaded(signed);
+  //   }
+  // };
+  //
+  // console.log(loaded);
 
   return (
     <>

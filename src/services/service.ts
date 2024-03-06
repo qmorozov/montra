@@ -1,5 +1,4 @@
-import { AppState } from '@services/app-store';
-import { useAppDispatch } from '@hooks/useAppRedux';
+import { AppState, useAppDispatch } from '@services/store/app-store';
 
 export type ServiceProvider<S, R = any> = (
   state: S extends undefined ? AppState : AppState[keyof AppState],
